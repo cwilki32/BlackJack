@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -32,51 +33,90 @@ public class Main {
         //Bonus: Can you figure out a way to handle Aces being worth 1 or 11?
         //Super Bonus: Can you handle the dealer also playing a hand to see who wins with the closest score to 21?
         System.out.println("Welcome to Blackjack");
-        Deck testDeck = new Deck(true); //need to somehow get this under Dealer
+        Deck testDeck = new Deck();
+        testDeck.addCard(new Card(Suit.Clubs, Rank.Ace));
+        testDeck.addCard(new Card(Suit.Spades, Rank.Ace));
+        testDeck.addCard(new Card(Suit.Diamonds, Rank.Ace));
+        testDeck.addCard(new Card(Suit.Hearts, Rank.Ace));
+        Hand testHand = new Hand();
+        testHand.takeCardFromDeck(testDeck);
+        testHand.takeCardFromDeck(testDeck);
+        testHand.takeCardFromDeck(testDeck);
+        testHand.takeCardFromDeck(testDeck);
+        System.out.println("The value of this hand is " + testHand.calculatedValue() + " and contains " + testHand);
+    }
+}
+//        BlackJack blackjack = new BlackJack();
+
+
+/*        Deck testDeck = new Deck(true); //need to somehow get this under Dealer
         Hand testHand = new Hand();
         testDeck.shuffle();
         Dealer testDealer = new Dealer();
         int wins = 0; //used to set up Scoreboard
         int losses = 0;
-
-        testHand.takeCardFromDeck(testDeck); //need a method but dealing two cards for practice
-        testHand.takeCardFromDeck(testDeck);
-
-
-        System.out.println("Cards dealt " + testHand);
-        System.out.println("The value of your cards is " + testHand.calculatedValue());
+        boolean startGame = true; //need to set the iteration
         boolean hitAgain = true;
         Scanner scanner = new Scanner(System.in);
-
-        int userChoice = 0;
-        if (testHand.calculatedValue() == 21) {
-            System.out.println("Blackjack!");
-            wins++;
-        } else if (testHand.calculatedValue() < 21) {
-            System.out.println("Would you like to 1) Hit or 2) Stay");
-            userChoice = scanner.nextInt();
-        }
-        while (hitAgain == true)
-            if (userChoice == 1) {
+//        int playAgain = 0;
+//
+//        while (startGame) {
+//            System.out.println("Would you like to play? 1) Yes 2) No");
+//            playAgain = scanner.nextInt();
+//            scanner.nextLine();
+//
+//            if (playAgain == 1) {
+//                testDeck.shuffle();
+//                testHand.clear();
+//        testDealer.deal(testDeck);
+                testHand.takeCardFromDeck(testDeck); //need a method but dealing two cards for practice
                 testHand.takeCardFromDeck(testDeck);
-                System.out.println("Your cards are " + testHand);
-                System.out.println("The value of your cards is now " + testHand.calculatedValue());
-                if (testHand.calculatedValue() < 21) {
-                    userChoice = scanner.nextInt();
-                } else if (testHand.calculatedValue() == 21) {
-                    System.out.println("Twenty One!");
-                    wins++;
-                    hitAgain = false;
-                } else {
-                    System.out.println("You busted!");
-                    losses++;
-                    hitAgain = false;
-                }
-                System.out.println("Wins " + wins + " Losses " + losses);
+//        testDealer.deal(testDeck);
 
-            } else if (userChoice == 2) {
-                System.out.println("You finished with " + testHand.calculatedValue());
-                hitAgain = false;
+
+                System.out.println("Cards dealt " + testHand);
+                System.out.println("The value of your cards is " + testHand.calculatedValue());
+
+
+                int userChoice = 0;
+                if (testHand.calculatedValue() == 21) {
+                    System.out.println("Blackjack!");
+                    wins++;
+                    System.out.println("Wins " + wins + " Losses " + losses);
+                } else if (testHand.calculatedValue() < 21) {
+                    System.out.println("Would you like to 1) Hit or 2) Stay");
+                    userChoice = scanner.nextInt();
+                    //                   scanner.nextLine();
+                }
+                while (hitAgain == true)
+                    if (userChoice == 1) {
+                        testHand.takeCardFromDeck(testDeck);
+                        System.out.println("Your cards are " + testHand);
+                        System.out.println("The value of your cards is now " + testHand.calculatedValue());
+                        if (testHand.calculatedValue() < 21) {
+                            userChoice = scanner.nextInt();
+                            scanner.nextLine();
+                        } else if (testHand.calculatedValue() == 21) {
+                            System.out.println("Twenty One!");
+                            wins++;
+                            hitAgain = false;
+                        } else {
+                            System.out.println("You busted!");
+                            losses++;
+                            hitAgain = false;
+                        }
+                        System.out.println("Wins " + wins + " Losses " + losses);
+
+                    } else if (userChoice == 2) {
+                        System.out.println("You finished with " + testHand.calculatedValue());
+                        hitAgain = false;
+                    }
+//            } else if (playAgain == 2) {
+//                System.out.print("Thanks for playing, you had " + wins + " and " + losses + " losses");
+//                startGame = false;
+//            } else {
+//                System.out.println("Invalid response, 1) to Play Again 2) to quit");
+//                playAgain = scanner.nextInt();
+//                scanner.nextLine();
             }
-    }
-}
+        }*/

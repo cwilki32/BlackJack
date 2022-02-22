@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class Dealer {
     //Create a new class called Dealer
@@ -10,9 +11,16 @@ public class Dealer {
 
     //used to create Array List that will simultaneously add cards to hand and remove from deck
     //need to create a new array List called hand
-    private Hand hand; //setting a new Hand variable from Hand class
 
-    public void setHand(Hand hand) {//setter
+    private Hand hand; //setting a new Hand variable from Hand class
+    private Deck deck;
+    Deck testDeck = new Deck(true);
+
+    public Dealer() {
+        this.hand = new Hand();
+    }
+
+    public void setHand(Hand hand) {
         this.hand = hand;
     }
 
@@ -20,25 +28,24 @@ public class Dealer {
         return this.hand;
     }
 
-    private void deal(Deck deck) { //deal method that sets 2 cards
-        this.getHand().takeCardFromDeck(deck);
-        getHand().takeCardFromDeck(deck);
+    private void hit(Deck deck) { //deal one card from deck
+        this.hand.takeCardFromDeck(deck);
     }
 
-    private void hit(Deck deck) { //deal one card from deck
-        this.getHand().takeCardFromDeck(deck);
+    private void deal(Deck deck) {//deal two cards
+        this.hand.takeCardFromDeck(deck);
+        this.hand.takeCardFromDeck(deck);
+    }
+    public boolean hasBlackjack() {
+        if (this.getHand().calculatedValue() == 21) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+    public void printDealerDraw() {
+        System.out.println("The dealer is showing " + getHand().getCard(0));
     }
 }
 
-
-
-/*    Scanner scanner = new Scanner(System.in); //importing scanner for user hit
-    boolean hitAgain = false;
-    Deck testDeck = new Deck(true);
-
-
-//    public Dealer() {
-
-        //   public int hit() {//creating a method called hit that deals 1 card
-
-//}*/
