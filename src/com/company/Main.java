@@ -1,9 +1,11 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
-	// Create a new repo in Github named BlackJack
+        // Create a new repo in Github named BlackJack
         //In IntelliJ, create a new project named BlackJack
         //In the Terminal navigate to your BlackJack project location
         //In terminal, use git init
@@ -29,5 +31,52 @@ public class Main {
         //Allow the user to keep getting cards until their value exceeds 21 or they choose to stay
         //Bonus: Can you figure out a way to handle Aces being worth 1 or 11?
         //Super Bonus: Can you handle the dealer also playing a hand to see who wins with the closest score to 21?
+        System.out.println("Welcome to Blackjack");
+        Deck testDeck = new Deck(true); //need to somehow get this under Dealer
+        Hand testHand = new Hand();
+        testDeck.shuffle();
+        Dealer testDealer = new Dealer();
+        int wins = 0; //used to set up Scoreboard
+        int losses = 0;
+
+        testHand.takeCardFromDeck(testDeck); //need a method but dealing two cards for practice
+        testHand.takeCardFromDeck(testDeck);
+
+
+        System.out.println("Cards dealt " + testHand);
+        System.out.println("The value of your cards is " + testHand.calculatedValue());
+        boolean hitAgain = true;
+        Scanner scanner = new Scanner(System.in);
+
+        int userChoice = 0;
+        if (testHand.calculatedValue() == 21) {
+            System.out.println("Blackjack!");
+            wins++;
+        } else if (testHand.calculatedValue() < 21) {
+            System.out.println("Would you like to 1) Hit or 2) Stay");
+            userChoice = scanner.nextInt();
+        }
+        while (hitAgain == true)
+            if (userChoice == 1) {
+                testHand.takeCardFromDeck(testDeck);
+                System.out.println("Your cards are " + testHand);
+                System.out.println("The value of your cards is now " + testHand.calculatedValue());
+                if (testHand.calculatedValue() < 21) {
+                    userChoice = scanner.nextInt();
+                } else if (testHand.calculatedValue() == 21) {
+                    System.out.println("Twenty One!");
+                    wins++;
+                    hitAgain = false;
+                } else {
+                    System.out.println("You busted!");
+                    losses++;
+                    hitAgain = false;
+                }
+                System.out.println("Wins " + wins + " Losses " + losses);
+
+            } else if (userChoice == 2) {
+                System.out.println("You finished with " + testHand.calculatedValue());
+                hitAgain = false;
+            }
     }
 }
