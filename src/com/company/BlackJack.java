@@ -13,8 +13,9 @@ public class BlackJack {// this class will house most of the game logic later
     //Shuffle and give player option to play again or quit
 
     //NEED SOMETHING TO RESET, MAYBE A DISCARD/EMPTY PLAYER HAND METHOD?
-    //WHAT IS WRONG WITH MY BLACKJACK CALCULATOR, KEEPS FROM ENTERING WHILE LOOP
-    private Deck deck;
+    //WHAT IS WRONG WITH MY BLACKJACK CALCULATOR, KEEPS FROM ENTERING WHILE LOOP?
+    //how can I slow down program? add a pause?
+    private Deck deck, discarded;
     private Dealer dealer;
     private Player player;
     Scanner scanner = new Scanner(System.in);
@@ -24,6 +25,7 @@ public class BlackJack {// this class will house most of the game logic later
 
     public BlackJack() { //Constructor for Blackjack, creates variables, starts game
         deck = new Deck(true);
+        discarded = new Deck();
         dealer = new Dealer();
         player = new Player();
 
@@ -32,6 +34,16 @@ public class BlackJack {// this class will house most of the game logic later
     }
 
     private void deal() {
+        if(wins > 0 || losses > 0 || pushes > 0) {
+            System.out.println();
+            System.out.println("Starting Next Round.....");
+            dealer.getHand().discardHand(discarded);
+            player.getHand().discardHand(discarded);
+        }
+        if(deck.cardsRemaining() < 6) {
+            deck.reloadDeck(discarded);
+        }
+
         dealer.getHand().takeCardFromDeck(deck);
         dealer.getHand().takeCardFromDeck(deck);
 
@@ -41,36 +53,52 @@ public class BlackJack {// this class will house most of the game logic later
         dealer.printDealerDraw();
         player.printHand();
         //check for blackjack for both players - win, push, loss
-//        if (dealer.hasBlackjack()) {
-//            dealer.printDealerDraw();
+        if (dealer.hasBlackjack()) {
+            dealer.printDealerDraw();
 
-//            if (player.hasBlackjack()) {
-//                System.out.println("You both have Blackjack! Close, you push");
-//                pushes++;
-//                deal();
-//            } else {
-//                System.out.println("Dealer has Blackjack! Bummer, you lose.");
-//                losses++;
-//                deal();
-//            }
-//            if (player.hasBlackjack()) {
-//                System.out.println("Blackjack! Congrats, you win.");
-//                wins++;
-//                deal();
+            if (player.hasBlackjack()) {
+                System.out.println("You both have Blackjack! Close, you push");
+                pushes++;
+                System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes."
+                + "\n");
+                player.getHand().clear();
+                dealer.getHand().clear();
+                deal();
+            } else {
+                System.out.println("Dealer has Blackjack! Bummer, you lose.");
+                losses++;
+                System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes."
+                        + "\n");
+                player.getHand().clear();
+                dealer.getHand().clear();
+                pause();
+                deal();
+            }
+        }
+            if (player.hasBlackjack()) {
+                System.out.println("Blackjack! Congrats, you win.");
+                wins++;
+                System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes."
+                        + "\n");
+                player.getHand().clear();
+                dealer.getHand().clear();
+                pause();
+                deal();
+            }
 
         //finish check, continue round
-//                player.playerDecision(deck);
+//                player.playerDecision(deck); can I move this to player Class? clean it up
 //
         int decision = 0;
         boolean hitAgain = true;
-        while (hitAgain == true) {
+        while (hitAgain == true && player.getHand().calculatedValue() <= 21) {
             System.out.println("Would you like to: 1) Hit or 2) Stay");
             decision = scanner.nextInt();
             scanner.nextLine();
             hitAgain = false;
         }
         if (decision == 1) {
-            player.hit(deck);
+            player.hit(deck, discarded);
             player.printHand();
             System.out.println("Would you like to 1) Hit or 2) Stay");
             hitAgain = true;
@@ -80,42 +108,60 @@ public class BlackJack {// this class will house most of the game logic later
                 hitAgain = false;
             } else {
                 decision = scanner.nextInt();
+                hitAgain = true;
             }
 
             } else {
-            System.out.println("You chose to stay");
-            System.out.println("Dealer has " + dealer.getHand());
+            System.out.println("You chose to stay with " + player.getHand().calculatedValue());
         }
 
             if (player.getHand().calculatedValue() > 21) {
                 System.out.println("You have gone over 21. Player busts.");
                 losses++;
-                System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes.");
+                System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes."
+                        + "\n");
                 player.getHand().clear();
                 dealer.getHand().clear();
+                pause();
                 deal();
             }
 
             while (dealer.getHand().calculatedValue() < 17) {
-                dealer.hit(deck);
+
+                System.out.println("Dealer has " + dealer.getHand() +  dealer.getHand().calculatedValue());
+                dealer.hit(deck, discarded);
                 System.out.println("Dealer hit.");
-                System.out.println("Dealer has " + dealer.getHand() + dealer.getHand().calculatedValue());
             }
             if (dealer.getHand().calculatedValue() > 21) {
-                System.out.println("Dealer busts. You win");
+                System.out.println("Dealer has "+ dealer.getHand().calculatedValue() + ". Dealer busts. You win");
+                wins++;
+            } else if (dealer.getHand().calculatedValue() < 21 && dealer.getHand().calculatedValue() <
+            player.getHand().calculatedValue()) {
+                System.out.println("Dealer has " + dealer.getHand().calculatedValue() + " Player has "
+                        + player.getHand().calculatedValue()+ ". You win.");
                 wins++;
             } else if (dealer.getHand().calculatedValue() > player.getHand().calculatedValue()) {
-                System.out.println("You lose.");
+                System.out.println("Dealer has " + dealer.getHand().calculatedValue() + " Player has "
+                + player.getHand().calculatedValue()+ ". You lose.");
                 losses++;
             } else {
-                System.out.println("You push.");
+                System.out.println("Dealer has " + dealer.getHand().calculatedValue() + " You push.");
                 pushes++;
             }
-            System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes.");
+            System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes."
+                    + "\n");
             player.getHand().clear();
             dealer.getHand().clear();
+            pause();
             deal();
 
+        }
+        public static void pause() {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

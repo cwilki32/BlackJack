@@ -19,7 +19,10 @@ public class Player {//separates player and dealer with new Class, both need set
         return this.hand;
     }
 
-    public void hit(Deck deck) {
+    public void hit(Deck deck, Deck discard) {
+        if(!deck.hasCards()) {
+            deck.reloadDeck(discard);
+        }
         this.hand.takeCardFromDeck(deck);
     }
 
@@ -35,26 +38,25 @@ public class Player {//separates player and dealer with new Class, both need set
         System.out.print("Player has" + this.hand + "with a value of " + this.hand.calculatedValue() + ". ");
     }
 
-    public void playerDecision(Deck deck) {
-        int decision = 0;
-        boolean hitAgain = true;
+//    public void playerDecision(Deck deck) {
+//        int decision = 0;
+//        boolean hitAgain = true;
+//
+//        while (hitAgain = true) {
+//            System.out.println("\n" + "Would you like to 1) Hit or 2) Stay?");
+//            decision = scanner.nextInt();
+//            hitAgain = false;
+//        }
+//        if (decision == 1) {
+//            this.hit(deck);
+//            if (this.getHand().calculatedValue() > 20) {
+//                return;
+//            }
+//            else {
+//                this.playerDecision(deck);
+//            }
+//        } else {
+//            System.out.println("You chose to stand");
+        }
 
-        while (hitAgain = true) {
-            System.out.println("\n" + "Would you like to 1) Hit or 2) Stay?");
-            decision = scanner.nextInt();
-            hitAgain = false;
-        }
-        if (decision == 1) {
-            this.hit(deck);
-            if (this.getHand().calculatedValue() > 20) {
-                return;
-            }
-            else {
-                this.playerDecision(deck);
-            }
-        } else {
-            System.out.println("You chose to stand");
-        }
-    }
-}
 

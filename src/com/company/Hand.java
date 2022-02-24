@@ -42,8 +42,12 @@ public class Hand {
         hand.clear();
     }
 
-    public Card getCard(int i) {
+    public Card getCard(int i) {//used to index one array to the other, top card
         return hand.get(i);
+    }
+    public void discardHand(Deck discardDeck) {//discard cards from Hand arrayList to discard ArrayList
+        discardDeck.addCards(hand);
+        hand.clear();
     }
 }
 

@@ -28,7 +28,10 @@ public class Dealer {
         return this.hand;
     }
 
-    public void hit(Deck deck) { //deal one card from deck
+    public void hit(Deck deck, Deck discard) { //deal one card from deck
+        if(!deck.hasCards()) {
+            deck.reloadDeck(discard);
+        }
         this.hand.takeCardFromDeck(deck);
     }
 

@@ -51,11 +51,34 @@ public class Deck {
     }
 
     //print out the cards remaining in deck
-    public int cardsRemaining() {
+    public int cardsRemaining() {//will be used to see how many cards remaining, if too few will reshuffle
         return deck.size();
     }
 
-    public void emptyDeck() {
+    public void emptyDeck() {//clear deck
         deck.clear();
+    }
+
+    public boolean hasCards() {//boolean to check if deck has cards left
+        if (deck.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void addCards(ArrayList<Card> cards) {//method to add cards to ArrayList
+        deck.addAll(cards);
+    }
+    public ArrayList<Card> getCards(){//getter
+        return deck;
+    }
+
+
+    public void reloadDeck(Deck discard) {//reload the deck from discards
+        this.addCards(discard.getCards());
+        this.shuffle();
+        discard.emptyDeck();
+        System.out.println("Reshuffling deck.");
     }
 }
