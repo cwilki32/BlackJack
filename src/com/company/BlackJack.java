@@ -72,6 +72,7 @@ public class BlackJack {// this class will house most of the game logic later
         if (decision == 1) {
             player.hit(deck);
             player.printHand();
+            System.out.println("Would you like to 1) Hit or 2) Stay");
             hitAgain = true;
             if (player.getHand().calculatedValue() > 21) {
                 System.out.println("You bust.");
@@ -83,11 +84,13 @@ public class BlackJack {// this class will house most of the game logic later
 
             } else {
             System.out.println("You chose to stay");
+            System.out.println("Dealer has " + dealer.getHand());
         }
 
             if (player.getHand().calculatedValue() > 21) {
                 System.out.println("You have gone over 21. Player busts.");
                 losses++;
+                System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes.");
                 player.getHand().clear();
                 dealer.getHand().clear();
                 deal();
@@ -96,7 +99,7 @@ public class BlackJack {// this class will house most of the game logic later
             while (dealer.getHand().calculatedValue() < 17) {
                 dealer.hit(deck);
                 System.out.println("Dealer hit.");
-                System.out.println(dealer.getHand().calculatedValue());
+                System.out.println("Dealer has " + dealer.getHand() + dealer.getHand().calculatedValue());
             }
             if (dealer.getHand().calculatedValue() > 21) {
                 System.out.println("Dealer busts. You win");
@@ -108,6 +111,7 @@ public class BlackJack {// this class will house most of the game logic later
                 System.out.println("You push.");
                 pushes++;
             }
+            System.out.println("You have " + wins + " wins " + + losses+  " losses and " + pushes + " pushes.");
             player.getHand().clear();
             dealer.getHand().clear();
             deal();
