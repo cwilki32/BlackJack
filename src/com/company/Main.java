@@ -33,20 +33,23 @@ public class Main {
         //Bonus: Can you figure out a way to handle Aces being worth 1 or 11?
         //Super Bonus: Can you handle the dealer also playing a hand to see who wins with the closest score to 21?
         System.out.println("Welcome to Blackjack");
-        Deck testDeck = new Deck();
-        testDeck.addCard(new Card(Suit.Clubs, Rank.Ace));
-        testDeck.addCard(new Card(Suit.Spades, Rank.Ace));
-        testDeck.addCard(new Card(Suit.Diamonds, Rank.Ace));
-        testDeck.addCard(new Card(Suit.Hearts, Rank.Ace));
-        Hand testHand = new Hand();
-        testHand.takeCardFromDeck(testDeck);
-        testHand.takeCardFromDeck(testDeck);
-        testHand.takeCardFromDeck(testDeck);
-        testHand.takeCardFromDeck(testDeck);
-        System.out.println("The value of this hand is " + testHand.calculatedValue() + " and contains " + testHand);
+//        Deck testDeck = new Deck();
+//        testDeck.addCard(new Card(Suit.Clubs, Rank.Ace));
+//        testDeck.addCard(new Card(Suit.Spades, Rank.Ace));
+//        testDeck.addCard(new Card(Suit.Diamonds, Rank.Ace));
+//        testDeck.addCard(new Card(Suit.Hearts, Rank.Ace));
+//        Hand testHand = new Hand();
+//        testHand.takeCardFromDeck(testDeck);
+//        testHand.takeCardFromDeck(testDeck);
+//        testHand.takeCardFromDeck(testDeck);
+//        testHand.takeCardFromDeck(testDeck);
+//        System.out.println("The value of this hand is " + testHand.calculatedValue() + " and contains " + testHand);
+//    }
+//}
+        BlackJack blackjack = new BlackJack();
+
     }
 }
-//        BlackJack blackjack = new BlackJack();
 
 
 /*        Deck testDeck = new Deck(true); //need to somehow get this under Dealer

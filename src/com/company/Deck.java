@@ -30,7 +30,7 @@ public class Deck {
     ;
 
     public Deck(boolean makeDeck) {
-        deck = new ArrayList<Card> ();
+        deck = new ArrayList<Card>();
         if (makeDeck) {
             for (Suit suit : Suit.values()) { //nested loop for Suits
                 for (Rank rank : Rank.values()) { //nested loop for Rank
@@ -39,16 +39,23 @@ public class Deck {
             }
         }
     }
+
     public void shuffle() { // need to shuffle deck
         Collections.shuffle(deck, new Random());
     }
+
     public Card takeCard() {//method that takes a copy of the first card from the deck array
         Card cardToTake = new Card(deck.get(0));
         deck.remove(0); //remove the card from the deck
         return cardToTake; //return the card
     }
+
     //print out the cards remaining in deck
     public int cardsRemaining() {
         return deck.size();
+    }
+
+    public void emptyDeck() {
+        deck.clear();
     }
 }

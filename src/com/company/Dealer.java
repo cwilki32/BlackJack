@@ -28,7 +28,7 @@ public class Dealer {
         return this.hand;
     }
 
-    private void hit(Deck deck) { //deal one card from deck
+    public void hit(Deck deck) { //deal one card from deck
         this.hand.takeCardFromDeck(deck);
     }
 
