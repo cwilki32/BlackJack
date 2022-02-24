@@ -22,6 +22,7 @@ public class BlackJack {// this class will house most of the game logic later
     private int wins = 0;
     private int losses = 0;
     private int pushes = 0;
+    boolean keepPlaying = true;
 
     public BlackJack() { //Constructor for Blackjack, creates variables, starts game
         deck = new Deck(true);
@@ -29,11 +30,28 @@ public class BlackJack {// this class will house most of the game logic later
         dealer = new Dealer();
         player = new Player();
 
-        deck.shuffle();
-        deal();
+//        deck.shuffle();
+//        deal();
+
+
+
+        int playDecision = 0;
+        while(keepPlaying) {
+            System.out.println("Would you like to play? 1) Yes or 2) No");
+            playDecision = scanner.nextInt();
+            if (playDecision == 1) {
+                deck.shuffle();
+                deal();
+            } else {
+                System.out.println("Thanks for playing BlackJack. You finished with " + wins + " wins "
+                        + losses + " losses " + "and " + pushes + " pushes. Please come back soon");
+                break;
+            }
+        }
+
     }
 
-    private void deal() {
+    public void deal() {
         if(wins > 0 || losses > 0 || pushes > 0) {
             System.out.println();
             System.out.println("Starting Next Round.....");
@@ -72,7 +90,8 @@ public class BlackJack {// this class will house most of the game logic later
                 player.getHand().clear();
                 dealer.getHand().clear();
                 pause();
-                deal();
+//                deal();
+                keepPlaying = true;
             }
         }
             if (player.hasBlackjack()) {
@@ -83,7 +102,8 @@ public class BlackJack {// this class will house most of the game logic later
                 player.getHand().clear();
                 dealer.getHand().clear();
                 pause();
-                deal();
+//                deal();
+                keepPlaying = true;
             }
 
         //finish check, continue round
@@ -123,7 +143,8 @@ public class BlackJack {// this class will house most of the game logic later
                 player.getHand().clear();
                 dealer.getHand().clear();
                 pause();
-                deal();
+//                deal();
+                keepPlaying = true;
             }
 
             while (dealer.getHand().calculatedValue() < 17) {
@@ -153,7 +174,8 @@ public class BlackJack {// this class will house most of the game logic later
             player.getHand().clear();
             dealer.getHand().clear();
             pause();
-            deal();
+//            deal();
+        keepPlaying = true;
 
         }
         public static void pause() {

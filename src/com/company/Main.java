@@ -34,7 +34,6 @@ public class Main {
         //Super Bonus: Can you handle the dealer also playing a hand to see who wins with the closest score to 21?
         System.out.println("Welcome to Blackjack");
         BlackJack blackjack = new BlackJack();
-
     }
 }
 
